@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 import os
 import sys
-from dotenv import load_dotenv
-load_dotenv()
 
 if __name__ == '__main__':
-    dotenv.read_dotenv()
+
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Jukebox_API.settings')
     try:

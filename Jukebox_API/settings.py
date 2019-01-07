@@ -13,55 +13,48 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import environ
 
-env = environ.Env(
 # set casting, default value
-DEBUG=(bool, False)
-)
+env = environ.Env(DEBUG=(bool, False),)
 # reading .env file
 environ.Env.read_env()
 
 # False if not in os.environ
 DEBUG = env('DEBUG')
 
-# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('SECRET_KEY')
-
-# Parse database connection url strings like psql://user:pass@127.0.0.1:8458/db
-DATABASES = {
-# read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
-'default': env.db(),
-# read os.environ['SQLITE_URL']
-'extra': env.db('SQLITE_URL', default='sqlite:////tmp/my-tmp-sqlite.db')
-}
-
-CACHES = {
-# read os.environ['CACHE_URL'] and raises ImproperlyConfigured exception if not found
-'default': env.cache(),
-# read os.environ['REDIS_URL']
-'redis': env.cache('REDIS_URL')
-}
-
-
-
-SPOTIPY_CLIENT_ID = os.getenv("CLIENT_ID")
-SPOTIPY_CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-SPOTIPY_REDIRECT_URI='your-app-redirect-url'
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+# SPOTIPY_CLIENT_ID = env("CLIENT_ID")
+# SPOTIPY_CLIENT_SECRET = env("CLIENT_SECRET")
+SPOTIPY_REDIRECT_URI='http://localhost:3000/'
+SECRET_KEY = env("SECRET_KEY")
+
+# Parse database connection url strings like psql://user:pass@127.0.0.1:8458/db
+
+# CACHES = {
+# # read os.environ['CACHE_URL'] and raises ImproperlyConfigured exception if not found
+# 'default': env.cache(),
+# # read os.environ['REDIS_URL']
+# 'redis': env.cache('REDIS_URL')
+# }
+
+
+
+
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*6*io!bj&s^e#mk4rt37j8)-v1(o9f+k-h#rz-*zp=z#ab)ln0'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -74,8 +67,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
-    'game',
     'channels',
+    'environ'
 ]
 
 MIDDLEWARE = [
