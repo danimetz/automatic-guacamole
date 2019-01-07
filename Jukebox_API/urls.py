@@ -15,16 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 # from django.urls import path
-from django.conf.urls import url
-from game.views import *
-from django.contrib.auth.views import login, logout
+from django.conf.urls import url, include
+from api.resources import TrackResource
+from api.resources import UserResource
+
+track_resource = TrackResource()
+user_resource = UserResource()
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     url(r'^admin/', admin.site.urls),
-    url(r'^register/', CreateUserView.as_view()),
-    url(r'^login/$', login, {'template_name': 'login.html'}),
-    url(r'^logout/$', logout, {'next_page': '/'}),
-
-    url(r'^$', HomeView.as_view())
+    url(r'^api/track', include(track_resource.urls))
+    url(r'^api/user', include(user_resource.urls))
 ]
